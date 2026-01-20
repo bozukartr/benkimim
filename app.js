@@ -30,7 +30,7 @@ const mySessionId = sessionStorage.getItem('guessWhoSessionId');
 const CHARACTERS = Array.from({ length: 15 }, (_, i) => ({
     id: i + 1,
     name: `Suspect ${i + 1}`,
-    image: `assets/${i + 1}.png`
+    image: `assets/${i + 1}.jpg`
 }));
 
 const screens = {
