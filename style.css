@@ -1,0 +1,286 @@
+:root {
+    --bg-mesh-1: #0a0a0f;
+    --bg-mesh-2: #1a1033;
+    --bg-mesh-3: #0d1b2a;
+
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-accent: rgba(10, 132, 255, 0.5);
+
+    --text-glow: 0 0 15px rgba(255, 255, 255, 0.3);
+    --blue-glow: 0 0 20px rgba(10, 132, 255, 0.4);
+
+    --safe-top: env(safe-area-inset-top, 20px);
+    --safe-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, sans-serif;
+    background: radial-gradient(circle at 0% 0%, var(--bg-mesh-2) 0%, var(--bg-mesh-1) 100%);
+    color: #fff;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dynamic Mesh Animated Background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 100% 100%, var(--bg-mesh-3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #16213e 0%, transparent 60%);
+    opacity: 0.6;
+    z-index: -1;
+    animation: meshFlow 15s ease-in-out infinite alternate;
+}
+
+@keyframes meshFlow {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    100% {
+        transform: scale(1.1) translate(20px, 10px);
+    }
+}
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* Futuristic Screens */
+.screen {
+    display: none;
+    flex: 1;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen.active {
+    display: flex;
+    animation: zoomBlurIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes zoomBlurIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(1.1);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+/* Glass HUD Containers */
+.glass-hud {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 32px;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Typography */
+.glitch-title {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+    background: linear-gradient(to bottom, #fff, #999);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--text-glow);
+}
+
+.sub-label {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Inputs & Buttons - Futuristic */
+.cyber-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    color: #fff;
+    font-size: 17px;
+    margin: 24px 0 12px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.cyber-input:focus {
+    border-color: var(--glass-accent);
+    box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
+}
+
+.btn-neon {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-neon:active {
+    transform: scale(0.95);
+    opacity: 0.9;
+}
+
+.btn-neon:disabled {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* Game Grid (3x5) - Zero Scroll */
+.game-grid-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.floating-tile {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1/1.1;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: center bottom;
+}
+
+.floating-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.floating-tile.selected {
+    transform: scale(1.05) translateY(-5px);
+    border-color: #fff;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.floating-tile.down {
+    transform: perspective(500px) rotateX(-100deg) scale(0.85);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* Floating HUD Navigation */
+.hud-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--safe-top) 24px 12px;
+    width: 100%;
+}
+
+.status-capsule {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Action Sheet / Result */
+.futur-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+.futur-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    padding: 40px;
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+    transform: scale(0.8);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.futur-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.reveal-card {
+    width: 120px;
+    height: 150px;
+    margin: 24px auto !important;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #fff;
+    box-shadow: var(--blue-glow);
+    display: block;
+    /* Ensure it's a block for margin auto */
+}
+
+.hidden {
+    display: none !important;
+}

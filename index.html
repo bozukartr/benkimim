@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>GuessWho Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- LOGIN SCREEN -->
+        <section id="screen-login" class="screen active">
+            <div class="glass-hud">
+                <p class="sub-label">Intelligence</p>
+                <h1 class="glitch-title">GUESSWHO</h1>
+                <p class="t-sub" style="opacity: 0.6;">PRO EDITION</p>
+
+                <input type="text" id="username" class="cyber-input" placeholder="ACCESS KEY (NICKNAME)" maxlength="12">
+                <button id="btn-play" class="btn-neon">INITIALIZE MATCH</button>
+            </div>
+        </section>
+
+        <!-- LOBBY SCREEN -->
+        <section id="screen-lobby" class="screen">
+            <div class="glass-hud">
+                <div class="system-spinner" style="width: 40px; height: 40px; margin: 0 auto 24px;"></div>
+                <h2 class="h-headline">SYNCING...</h2>
+                <p class="sub-label">SCANNING NETWORK</p>
+                <button id="btn-cancel" class="btn-ghost"
+                    style="color: #fff; margin-top: 24px; opacity: 0.5;">ABORT</button>
+            </div>
+        </section>
+
+        <!-- CHOICE SCREEN -->
+        <section id="screen-choice" class="screen">
+            <div class="hud-nav">
+                <p class="sub-label">IDENTITY SELECTION</p>
+                <div class="status-capsule">PENDING...</div>
+            </div>
+
+            <div class="game-grid-container" id="selection-grid"></div>
+
+            <footer style="width: 100%; padding: 12px 0 var(--safe-bottom);">
+                <button id="btn-confirm-choice" class="btn-neon" disabled>ENCRYPT CHOICE</button>
+            </footer>
+        </section>
+
+        <!-- MAIN GAME SCREEN -->
+        <section id="screen-game" class="screen">
+            <div class="hud-nav">
+                <div id="my-choice-mini" class="status-capsule"
+                    style="padding: 4px; width: 36px; height: 36px; border-radius: 10px; background-size: cover;"></div>
+                <p id="game-status" class="status-capsule" style="background: rgba(255,255,255,0.1);">15 SUSPECTS</p>
+                <p id="opp-name" class="status-capsule" style="color: var(--glass-accent);">OPPONENT</p>
+            </div>
+
+            <div class="game-grid-container" id="game-grid"></div>
+
+            <footer style="width: 100%; padding: 12px 0 var(--safe-bottom);">
+                <button id="btn-make-guess" class="btn-neon"
+                    style="background: var(--glass-bg); color: #fff; border: 1px solid var(--glass-border);"
+                    disabled>FINAL DECRYPTION</button>
+            </footer>
+        </section>
+
+        <!-- RESULT OVERLAY -->
+        <div id="modal-result" class="futur-overlay">
+            <div class="modal-content">
+                <p class="sub-label" id="result-status">MISSION STATUS</p>
+                <h2 id="result-title" class="glitch-title" style="font-size: 32px; margin: 12px 0;">VICTORY</h2>
+                <p id="result-msg" class="t-sub">Target identified successfully.</p>
+
+                <div class="reveal-card" id="reveal-opp"></div>
+
+                <button id="btn-restart" class="btn-neon">REBOOT GAME</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
